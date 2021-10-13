@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if(b==true){
                 user u = new user(etn.getText().toString(),ete.getText().toString(),etp.getText().toString(),
-                        Integer.parseInt(phone.getText().toString()),0);
+                        Integer.parseInt(phone.getText().toString()),50000);
                 Intent i = new Intent(MainActivity.this,login.class);
                 i.putExtra("user",u);
                 startActivity(i);

@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Saldo : 50.000 Rp"
+        android:text="Saldo : IDR 50.000"
+        android:textAlignment="center"
         android:textSize="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,20 +21,38 @@
         app:layout_constraintVertical_bias="0.244" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/withdrawW"
         android:layout_width="412dp"
         android:layout_height="86dp"
         android:background="#00BCD4"
         android:gravity="center"
-        android:text="Tarik Ke Bank"
+        android:text="Withdraw"
         android:textAlignment="center"
+        android:textColor="#455A64"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.866" />
+
+    <TextView
+        android:id="@+id/backW"
+        android:layout_width="412dp"
+        android:layout_height="86dp"
+        android:background="#1A33DC"
+        android:gravity="center"
+        android:text="Back to Profile"
+        android:textAlignment="center"
+        android:textColor="#F8F6F6"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.875" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -48,18 +67,33 @@
         app:srcCompat="@drawable/allinone" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="324dp"
-        android:layout_height="40dp"
-        android:digits="10"
+        android:id="@+id/editTextNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:ems="10"
         android:hint="No Rekening"
-        android:inputType="textPersonName"
+        android:inputType="number"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393" />
+        app:layout_constraintVertical_bias="0.476" />
+
+    <EditText
+        android:id="@+id/editTextNumber3"
+        android:layout_width="275dp"
+        android:layout_height="68dp"
+        android:ems="10"
+        android:hint="Nominal"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.589" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
