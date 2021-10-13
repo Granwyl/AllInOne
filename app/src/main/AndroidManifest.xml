@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AllInOne">
         <activity
+            android:name=".profile"
+            android:exported="true" />
+        <activity
             android:name=".homepage"
             android:exported="true" />
         <activity
