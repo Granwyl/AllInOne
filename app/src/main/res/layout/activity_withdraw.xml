@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/withdrawW"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="86dp"
         android:background="#00BCD4"
         android:gravity="center"
@@ -39,7 +39,7 @@
 
     <TextView
         android:id="@+id/backW"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="86dp"
         android:background="#1A33DC"
         android:gravity="center"
@@ -47,6 +47,7 @@
         android:textAlignment="center"
         android:textColor="#F8F6F6"
         android:textSize="34sp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

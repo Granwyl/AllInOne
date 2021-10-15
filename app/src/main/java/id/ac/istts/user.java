@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class user implements Parcelable {
-    String username,email,password;
-    int phone,saldo;
+    public String username,email,password;
+    public int phone,saldo;
 
     public user(String username, String email, String password, int phone, int saldo) {
         this.username = username;
