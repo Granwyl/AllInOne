@@ -10,12 +10,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Random;
+
 public class Withdraw extends AppCompatActivity {
 
     user u;
-
+    Connection conn;
+    String connresult="";
     TextView tv1,back,dewit;
     EditText nominal,rek;
+    int o = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,8 @@ public class Withdraw extends AppCompatActivity {
                     if(rek.getText().length()==10){
                         int p = Integer.parseInt(nominal.getText().toString());
                         u.setSaldo(u.getSaldo()-p);
+                        o = u.getSaldo();
+                        getTextfromSql(view);
                         tv1.setText("Saldo : IDR "+u.getSaldo());
                         rek.setText("");
                         nominal.setText("");
@@ -57,5 +66,20 @@ public class Withdraw extends AppCompatActivity {
             }
         });
 
+    }
+    public void getTextfromSql(View view){
+        try {
+            ConnHelper connhelper = new ConnHelper();
+            conn = connhelper.connclass();
+            if (conn!=null){
+                String query= "update users set saldo = "+o+" where username = "+u.getUsername()+";";
+                Statement st= conn.createStatement();
+                ResultSet rs= st.executeQuery(query);
+            }else {
+                connresult= "check connection";
+            }
+        }catch (Exception ex){
+
+        }
     }
 }

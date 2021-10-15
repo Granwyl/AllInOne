@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.sql.Connection;
+
 public class homepage extends AppCompatActivity {
+
 
     ImageView profile;
     user u;
