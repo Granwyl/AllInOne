@@ -34,9 +34,10 @@ public class login extends AppCompatActivity {
                 }else if(etp.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Password harus diisi",Toast.LENGTH_SHORT).show();
                 }else{
+                    gettextfromSQL(view);
                     if(u.getEmail().equals(ete.getText().toString())){
                         if(u.getPassword().equals(etp.getText().toString())){
-                            gettextfromSQL(view);
+
                             Intent x = new Intent(login.this,homepage.class);
                             x.putExtra("user",u);
                             startActivity(x);
