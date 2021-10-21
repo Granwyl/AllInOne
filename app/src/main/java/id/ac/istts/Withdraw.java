@@ -58,15 +58,20 @@ public class Withdraw extends AppCompatActivity {
             public void onClick(View view) {
                 if(!rek.getText().toString().isEmpty()){
                     if(rek.getText().length()==10){
-                        int p = Integer.parseInt(nominal.getText().toString());
-                        u.get(idx).setSaldo(u.get(idx).getSaldo()-p);
-                        o = u.get(idx).getSaldo();
-                        //getTextfromSql(view);
-                        tv1.setText("Saldo : IDR "+u.get(idx).getSaldo());
-                        rek.setText("");
-                        nominal.setText("");
-                        Toast.makeText(getApplicationContext(),"Withdrawal sebesar "+p+
-                                " berhasil dilakukan",Toast.LENGTH_SHORT).show();
+                        if(nominal.getText().toString().isEmpty()){
+                            Toast.makeText(getApplicationContext(),"Nominal harus diisi",Toast.LENGTH_SHORT).show();
+                        }else{
+                            int p = Integer.parseInt(nominal.getText().toString());
+                            u.get(idx).setSaldo(u.get(idx).getSaldo()-p);
+                            o = u.get(idx).getSaldo();
+                            //getTextfromSql(view);
+                            tv1.setText("Saldo : IDR "+u.get(idx).getSaldo());
+                            rek.setText("");
+                            nominal.setText("");
+                            Toast.makeText(getApplicationContext(),"Withdrawal sebesar "+p+
+                                    " berhasil dilakukan",Toast.LENGTH_SHORT).show();
+                        }
+
                     }else{
                         Toast.makeText(getApplicationContext(),"No Rek hanya terdiri dari 10 digit",Toast.LENGTH_SHORT).show();
                     }

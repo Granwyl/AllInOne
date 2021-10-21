@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ public class login extends AppCompatActivity {
     String connResult="";
     ArrayList<user> u;
     EditText ete,etp;
-
+    Button breg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,15 @@ public class login extends AppCompatActivity {
         }else{
             u = new ArrayList<>();
         }
+        breg = findViewById(R.id.breg);
+        breg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent x = new Intent(login.this,MainActivity.class);
+                x.putExtra("user",u);
+                startActivity(x);
+            }
+        });
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
