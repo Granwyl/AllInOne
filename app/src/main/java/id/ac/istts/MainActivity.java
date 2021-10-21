@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.xml.transform.Result;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button reg;
     EditText etn,etp,ete,phone;
     String TempPass;
-
+    ArrayList<user> au;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +34,16 @@ public class MainActivity extends AppCompatActivity {
         ete = findViewById(R.id.email);
         phone = findViewById(R.id.editTextNumber);
         TempPass = etp.getText().toString();
+        Intent z = getIntent();
+        if(z.hasExtra("user")){
+            au = z.getParcelableArrayListExtra("user");
+        }else{
+            au = new ArrayList<>();
+        }
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            boolean b = false;
+            boolean b = true;
             if(etn.getText().toString().isEmpty()){
                 Toast.makeText(getApplicationContext(),"Username harus diisi",Toast.LENGTH_SHORT).show();
             }
@@ -50,14 +57,21 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Phone number harus diisi",Toast.LENGTH_SHORT).show();
             }
             else{
-                b = true;
+                for (int i = 0; i < au.size(); i++) {
+                    if(au.get(i).getUsername().toString().equals(etn.getText().toString())){
+                        b = false;
+                        Toast.makeText(getApplicationContext(),"Username sudah dipakai",Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
+
             if(b==true){
-                //user u = new user(etn.getText().toString(),ete.getText().toString(),etp.getText().toString(),
-                //        Integer.parseInt(phone.getText().toString()),500000);
-                getTextfromSql(view);
+                user u = new user(etn.getText().toString(),ete.getText().toString(),etp.getText().toString(),
+                        Integer.parseInt(phone.getText().toString()),500000);
+                au.add(u);
+                //getTextfromSql(view);
                 Intent i = new Intent(MainActivity.this,login.class);
-                //i.putExtra("user",u);
+                i.putExtra("user",au);
                 startActivity(i);
             }
 

@@ -13,11 +13,13 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Withdraw extends AppCompatActivity {
 
-    user u;
+    ArrayList<user> u;
+    Integer idx=0;
     Connection conn;
     String connresult="";
     TextView tv1,back,dewit;
@@ -34,13 +36,21 @@ public class Withdraw extends AppCompatActivity {
         rek = findViewById(R.id.editTextNumber2);
         Intent i = getIntent();
         if(i.hasExtra("user")){
-            u = i.getParcelableExtra("user");
+            u = i.getParcelableArrayListExtra("user");
+        }else{
+            u = new ArrayList<>();
         }
-        tv1.setText("Saldo : IDR "+u.getSaldo());
+        if(i.hasExtra("idx")){
+            idx = i.getIntExtra("idx",0);
+        }
+        tv1.setText("Saldo : IDR "+u.get(idx).getSaldo());
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent z = new Intent(Withdraw.this,profile.class);
+                z.putExtra("user",u);
+                z.putExtra("idx",idx);
+                startActivity(z);
             }
         });
         dewit.setOnClickListener(new View.OnClickListener() {
@@ -49,10 +59,10 @@ public class Withdraw extends AppCompatActivity {
                 if(!rek.getText().toString().isEmpty()){
                     if(rek.getText().length()==10){
                         int p = Integer.parseInt(nominal.getText().toString());
-                        u.setSaldo(u.getSaldo()-p);
-                        o = u.getSaldo();
-                        getTextfromSql(view);
-                        tv1.setText("Saldo : IDR "+u.getSaldo());
+                        u.get(idx).setSaldo(u.get(idx).getSaldo()-p);
+                        o = u.get(idx).getSaldo();
+                        //getTextfromSql(view);
+                        tv1.setText("Saldo : IDR "+u.get(idx).getSaldo());
                         rek.setText("");
                         nominal.setText("");
                         Toast.makeText(getApplicationContext(),"Withdrawal sebesar "+p+
@@ -72,7 +82,7 @@ public class Withdraw extends AppCompatActivity {
             ConnHelper connhelper = new ConnHelper();
             conn = connhelper.connclass();
             if (conn!=null){
-                String query= "update users set saldo = "+o+" where username = "+u.getUsername()+";";
+                String query= "update users set saldo = "+o+" where username = "+u.get(idx).getUsername()+";";
                 Statement st= conn.createStatement();
                 ResultSet rs= st.executeQuery(query);
             }else {

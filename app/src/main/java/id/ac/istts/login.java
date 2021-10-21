@@ -11,12 +11,13 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class login extends AppCompatActivity {
     Connection conn;
     String connResult="";
-    user u;
+    ArrayList<user> u;
     EditText ete,etp;
 
     @Override
@@ -25,7 +26,12 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ete = findViewById(R.id.emailL);
         etp = findViewById(R.id.PassL);
-
+        Intent i = getIntent();
+        if(i.hasExtra("user")){
+            u = i.getParcelableArrayListExtra("user");
+        }else{
+            u = new ArrayList<>();
+        }
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,15 +40,18 @@ public class login extends AppCompatActivity {
                 }else if(etp.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Password harus diisi",Toast.LENGTH_SHORT).show();
                 }else{
-                    gettextfromSQL(view);
-                    if(u.getEmail().equals(ete.getText().toString())){
-                        if(u.getPassword().equals(etp.getText().toString())){
-
-                            Intent x = new Intent(login.this,homepage.class);
-                            x.putExtra("user",u);
-                            startActivity(x);
+                    //gettextfromSQL(view);
+                    for (int i = 0; i < u.size(); i++) {
+                        if(u.get(i).getEmail().equals(ete.getText().toString())){
+                            if(u.get(i).getPassword().equals(etp.getText().toString())){
+                                Intent x = new Intent(login.this,homepage.class);
+                                x.putExtra("user",u);
+                                x.putExtra("idx",i);
+                                startActivity(x);
+                            }
                         }
                     }
+
                 }
             }
         });
@@ -67,7 +76,8 @@ public class login extends AppCompatActivity {
                     String t4= rs.getString(3);
                     String t5= rs.getString(4);
                     String t6 = rs.getString(5);
-                    u = new user(t2,t4,t3,Integer.parseInt(t5),Integer.parseInt(t6));
+                    user ut = new user(t2,t4,t3,Integer.parseInt(t5),Integer.parseInt(t6));
+                    u.add(ut);
                 }
             }else {
                 connResult= "check connection";

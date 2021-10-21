@@ -12,7 +12,7 @@ public class ConnHelper {
     String username, password, port, ip, database;
     @SuppressLint("NewApi")
     public Connection connclass(){
-        ip = "202.80.218.210";
+        ip = "140.0.149.117";
         database = "allinone";
         username = "root";
         password = "";
@@ -21,7 +21,7 @@ public class ConnHelper {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Connection connection = null;
-        String connURL= null;
+        String connURL = null;
 
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
