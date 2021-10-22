@@ -1,0 +1,22 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/AllInOne/app/src/main/res/layout/activity_cart.xml\" value=\"0.2558876811594203\" />\r\n        <entry key=\"..\\:/AllInOne/app/src/main/res/layout/activity_homepage.xml\" value=\"0.36666666666666664\" />\r\n        <entry key=\"..\\:/AllInOne/app/src/main/res/layout/activity_main.xml\" value=\"0.36666666666666664\" />\r\n        <entry key=\"..\\:/AllInOne/app/src/main/res/layout/activity_profile.xml\" value=\"0.36666666666666664\" />\r\n        <entry key=\"..\\:/Users/User/Documents/GitHub/AllInOne/app/src/main/res/layout/activity_main.xml\" value=\"0.25\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 02f4ed316632e40db568ecfbda840ddbb5d0a7e3)
++++ b/.idea/misc.xml	(date 1634880613887)
+@@ -3,10 +3,7 @@
+   <component name="DesignSurface">
+     <option name="filePathToZoomLevelMap">
+       <map>
+-        <entry key="..\:/AllInOne/app/src/main/res/layout/activity_cart.xml" value="0.2558876811594203" />
+-        <entry key="..\:/AllInOne/app/src/main/res/layout/activity_homepage.xml" value="0.36666666666666664" />
+-        <entry key="..\:/AllInOne/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+-        <entry key="..\:/AllInOne/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
++        <entry key="..\:/Android Studio/Git/app/src/main/res/layout/activity_homepage.xml" value="0.38697916666666665" />
+         <entry key="..\:/Users/User/Documents/GitHub/AllInOne/app/src/main/res/layout/activity_main.xml" value="0.25" />
+       </map>
+     </option>
