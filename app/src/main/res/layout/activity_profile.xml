@@ -82,16 +82,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="69dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/home" />
-
-    <ImageView
         android:id="@+id/imageView10"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -123,41 +113,52 @@
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="55dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:srcCompat="@drawable/shop" />
 
     <ImageView
+        android:id="@+id/imageView15"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView14"
+        app:srcCompat="@drawable/akun" />
+
+    <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="54dp"
-        android:layout_height="50dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView12"
-        app:srcCompat="@drawable/auction2" />
+        app:srcCompat="@drawable/auction" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/home" />
 
     <ImageView
         android:id="@+id/imageView14"
-        android:layout_width="79dp"
-        android:layout_height="71dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView13"
         app:srcCompat="@drawable/ofs" />
-
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="75dp"
-        android:layout_height="76dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView14"
-        app:srcCompat="@drawable/akun" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
