@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void login_klik(View v){
         Intent i = new Intent(MainActivity.this, login.class);
+        i.putExtra("user",au);
         startActivity(i);
     }
 }
