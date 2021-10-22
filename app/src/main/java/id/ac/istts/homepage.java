@@ -1,9 +1,12 @@
 package id.ac.istts;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -39,5 +42,22 @@ public class homepage extends AppCompatActivity {
                 startActivity(x);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.optionmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.optioncart){
+            Intent z = new Intent(homepage.this,cart.class);
+            z.putExtra("user",u);
+            z.putExtra("idx",idx);
+            startActivity(z);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
