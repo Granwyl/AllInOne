@@ -24,11 +24,11 @@ public class ConnHelper {
         String connURL = null;
 
         try {
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            connURL= "jdbc:jtds:sqlserver://"+ ip + ":"+ port+";"+ "databasename="+ database+";user="+username+";password="+password+";";
-            connection = DriverManager.getConnection(connURL);
+            //Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            //connURL= "jdbc:jtds:sqlserver://"+ ip + ":"+ port+";"+ "databasename="+ database+";user="+username+";password="+password+";";
+            //connection = DriverManager.getConnection(connURL);
         }catch (Exception ex){
-            Log.e("error",ex.getMessage());
+            //Log.e("error",ex.getMessage());
         }
         return connection;
     }

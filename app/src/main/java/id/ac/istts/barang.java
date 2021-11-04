@@ -7,6 +7,9 @@ public class barang implements Parcelable {
     String id_barang,nama_barang,id_penjual,jenis_barang;
     Integer harga,stok;
 
+    public barang() {
+    }
+
     public barang(String id_barang, String nama_barang, String id_penjual, String jenis_barang, Integer harga, Integer stok) {
         this.id_barang = id_barang;
         this.nama_barang = nama_barang;

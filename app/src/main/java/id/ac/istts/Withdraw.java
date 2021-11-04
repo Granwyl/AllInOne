@@ -25,6 +25,8 @@ public class Withdraw extends AppCompatActivity {
     TextView tv1,back,dewit;
     EditText nominal,rek;
     int o = 0;
+    ArrayList<cartItem> carts;
+    ArrayList<barang> bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +36,24 @@ public class Withdraw extends AppCompatActivity {
         dewit = findViewById(R.id.withdrawW);
         nominal = findViewById(R.id.editTextNumber3);
         rek = findViewById(R.id.editTextNumber2);
-        Intent i = getIntent();
-        if(i.hasExtra("user")){
-            u = i.getParcelableArrayListExtra("user");
+        Intent z = getIntent();
+        if(z.hasExtra("user")){
+            u = z.getParcelableArrayListExtra("user");
         }else{
             u = new ArrayList<>();
         }
-        if(i.hasExtra("idx")){
-            idx = i.getIntExtra("idx",0);
+        if(z.hasExtra("idx")){
+            idx = z.getIntExtra("idx",0);
+        }
+        if(z.hasExtra("cart")){
+            carts = z.getParcelableArrayListExtra("cart");
+        }else{
+            carts = new ArrayList<>();
+        }
+        if(z.hasExtra("barang")){
+            bar = z.getParcelableArrayListExtra("barang");
+        }else{
+            bar = new ArrayList<>();
         }
         tv1.setText("Saldo : IDR "+u.get(idx).getSaldo());
         back.setOnClickListener(new View.OnClickListener() {

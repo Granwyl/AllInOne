@@ -4,13 +4,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class user implements Parcelable {
-    public String username,email,password;
+    public String username,email,password,type;
     public int phone,saldo;
 
-    public user(String username, String email, String password, int phone, int saldo) {
+    public user(String username, String email, String password, String type, int phone, int saldo) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.type = type;
         this.phone = phone;
         this.saldo = saldo;
     }
@@ -19,6 +20,7 @@ public class user implements Parcelable {
         username = in.readString();
         email = in.readString();
         password = in.readString();
+        type = in.readString();
         phone = in.readInt();
         saldo = in.readInt();
     }
@@ -59,6 +61,14 @@ public class user implements Parcelable {
         this.password = password;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public int getPhone() {
         return phone;
     }
@@ -85,6 +95,7 @@ public class user implements Parcelable {
         parcel.writeString(username);
         parcel.writeString(email);
         parcel.writeString(password);
+        parcel.writeString(type);
         parcel.writeInt(phone);
         parcel.writeInt(saldo);
     }

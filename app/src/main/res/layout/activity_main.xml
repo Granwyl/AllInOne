@@ -64,37 +64,71 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email" />
 
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_width="206dp"
+            android:layout_height="53dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.55">
+
+            <RadioButton
+                android:id="@+id/rbseller"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Seller" />
+
+            <RadioButton
+                android:id="@+id/rbbuyer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Buyer" />
+        </RadioGroup>
+
         <Button
             android:id="@+id/register"
             android:layout_width="271dp"
             android:layout_height="48dp"
             android:layout_marginTop="160dp"
             android:text="Register"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintVertical_bias="0.294" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="108dp"
             android:layout_marginTop="216dp"
             android:text="Already have an account?"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.365"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintVertical_bias="0.36" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="216dp"
-            android:layout_marginEnd="88dp"
             android:onClick="login_klik"
             android:text="Login!"
             android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintHorizontal_bias="0.735"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintVertical_bias="0.422" />
 
         <EditText
             android:id="@+id/editTextNumber"

@@ -7,4 +7,7 @@
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="optioncart"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/optionlogout"
+        android:title="Logout" />
 </menu>

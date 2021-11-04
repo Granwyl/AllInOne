@@ -4,19 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class Dtransaksi extends AppCompatActivity {
+public class adminpage extends AppCompatActivity {
 
-    ArrayList<cartItem> carts;
-    ArrayList<barang> bar;
+    Button bexit;
     ArrayList<user> u;
-    int idx = 0;
+    ArrayList<barang> bar;
+    ArrayList<cartItem> carts;
+    Integer idx = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dtransaksi);
+        setContentView(R.layout.activity_adminpage);
         Intent z = getIntent();
         if(z.hasExtra("user")){
             u = z.getParcelableArrayListExtra("user");
@@ -36,5 +39,16 @@ public class Dtransaksi extends AppCompatActivity {
         }else{
             bar = new ArrayList<>();
         }
+        bexit = findViewById(R.id.button2);
+        bexit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent z = new Intent(adminpage.this,login.class);
+                z.putExtra("user",u);
+                z.putExtra("cart",carts);
+                z.putExtra("barang",bar);
+                startActivity(z);
+            }
+        });
     }
 }

@@ -21,17 +21,29 @@ public class login extends AppCompatActivity {
     ArrayList<user> u;
     EditText ete,etp;
     Button breg;
+    ArrayList<cartItem> carts;
+    ArrayList<barang> bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ete = findViewById(R.id.emailL);
         etp = findViewById(R.id.PassL);
-        Intent i = getIntent();
-        if(i.hasExtra("user")){
-            u = i.getParcelableArrayListExtra("user");
+        Intent z = getIntent();
+        if(z.hasExtra("user")){
+            u = z.getParcelableArrayListExtra("user");
         }else{
             u = new ArrayList<>();
+        }
+        if(z.hasExtra("cart")){
+            carts = z.getParcelableArrayListExtra("cart");
+        }else{
+            carts = new ArrayList<>();
+        }
+        if(z.hasExtra("barang")){
+            bar = z.getParcelableArrayListExtra("barang");
+        }else{
+            bar = new ArrayList<>();
         }
         breg = findViewById(R.id.breg);
         breg.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +51,8 @@ public class login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent x = new Intent(login.this,MainActivity.class);
                 x.putExtra("user",u);
+                x.putExtra("barang",bar);
+                x.putExtra("cart",carts);
                 startActivity(x);
             }
         });
@@ -49,7 +63,13 @@ public class login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Email harus diisi",Toast.LENGTH_SHORT).show();
                 }else if(etp.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Password harus diisi",Toast.LENGTH_SHORT).show();
-                }else{
+                }else if(ete.getText().toString().equalsIgnoreCase("admin")&&
+                        etp.getText().toString().equalsIgnoreCase("admin")){
+                    Intent x = new Intent(login.this,adminpage.class);
+                    x.putExtra("user",u);
+                    startActivity(x);
+                }
+                else{
                     //gettextfromSQL(view);
                     for (int i = 0; i < u.size(); i++) {
                         if(u.get(i).getEmail().equals(ete.getText().toString())){
@@ -57,6 +77,8 @@ public class login extends AppCompatActivity {
                                 Intent x = new Intent(login.this,homepage.class);
                                 x.putExtra("user",u);
                                 x.putExtra("idx",i);
+                                x.putExtra("barang",bar);
+                                x.putExtra("cart",carts);
                                 startActivity(x);
                             }
                         }
@@ -86,8 +108,8 @@ public class login extends AppCompatActivity {
                     String t4= rs.getString(3);
                     String t5= rs.getString(4);
                     String t6 = rs.getString(5);
-                    user ut = new user(t2,t4,t3,Integer.parseInt(t5),Integer.parseInt(t6));
-                    u.add(ut);
+                    //user ut = new user(t2,t4,t3,Integer.parseInt(t5),Integer.parseInt(t6));
+                   // u.add(ut);
                 }
             }else {
                 connResult= "check connection";
