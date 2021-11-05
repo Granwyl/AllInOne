@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.849" />
 
     <Button
-        android:id="@+id/backC2"
+        android:id="@+id/bayar"
         android:layout_width="149dp"
         android:layout_height="48dp"
         android:text="Bayar"

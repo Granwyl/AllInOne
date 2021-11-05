@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class cart extends AppCompatActivity {
 
-    Button back;
+    Button back,bayar;
     ArrayList<user> u;
     ArrayList<barang> bar;
     ArrayList<cartItem> carts;
@@ -99,6 +99,23 @@ public class cart extends AppCompatActivity {
                 c.putExtra("barang",bar);
                 c.putExtra("cart",carts);
                 startActivity(c);
+            }
+        });
+        bayar = findViewById(R.id.bayar);
+        bayar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < carts.get(idc).getBar().size(); i++) {
+                    for (int j = 0; j < u.size(); j++) {
+                        if(u.get(j).getEmail().equals(carts.get(idc).getBar().get(i).getId_penjual())){
+                            u.get(j).setSaldo(u.get(j).getSaldo()+carts.get(idc).getBar().get(i).getHarga());
+
+                            Toast.makeText(getApplicationContext(), "Barang berhasil dibeli", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                carts.get(idc).setBar(new ArrayList<>());
+                cad.notifyDataSetChanged();
             }
         });
     }

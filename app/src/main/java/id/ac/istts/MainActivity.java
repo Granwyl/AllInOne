@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
             au = z.getParcelableArrayListExtra("user");
         }else{
             au = new ArrayList<>();
+            user uu = new user("jensen","jensen","123","seller",123456,100000);
+            au.add(uu);
+            uu = new user("polka","polka","123","seller",123456,100000);
+            au.add(uu);
+            uu = new user("konis","konis","123","seller",123456,100000);
+            au.add(uu);
         }
         if(z.hasExtra("cart")){
             carts = z.getParcelableArrayListExtra("cart");
