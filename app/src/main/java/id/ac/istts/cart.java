@@ -12,7 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -65,6 +66,29 @@ public class cart extends AppCompatActivity {
         cad = new cartAdapter(getApplicationContext(),carts,idc);
         rv.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
         rv.setAdapter(cad);
+        cad.setOnItemClickCallback(new cartAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(barang cc, View v) {
+                PopupMenu pop = new PopupMenu(getApplicationContext(),v);
+                pop.inflate(R.menu.popupcart);
+                pop.show();
+                pop.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if(menuItem.getItemId()==R.id.cartDel){
+                            for (int i = 0; i < carts.get(idc).getBar().size(); i++) {
+                                if(carts.get(idc).getBar().get(i).getNama_barang().equals(cc.getNama_barang())){
+                                    carts.get(idc).getBar().remove(i);
+                                    cad.notifyDataSetChanged();
+                                    Toast.makeText(getApplicationContext(), "Item dihapus dari cart", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                });
+            }
+        });
         iv17 = findViewById(R.id.imageView17);
         iv17.setOnClickListener(new View.OnClickListener() {
             @Override

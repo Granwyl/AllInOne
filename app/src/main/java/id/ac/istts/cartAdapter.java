@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +37,13 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.holder> {
             holder.tvpenjual.setText(b.getId_penjual());
             holder.tvharga.setText(b.getHarga()+"");
 
+            holder.tvnama.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickCallback.onItemClicked(b,view);
+                }
+            });
+
     }
 
     @Override
@@ -56,10 +62,10 @@ public class cartAdapter extends RecyclerView.Adapter<cartAdapter.holder> {
     }
 
     public interface OnItemClickCallback{
-        void onItemClicked(cartItem cc);
+        void onItemClicked(barang cc,View v);
     }
-    private barangAdapter.OnItemClickCallback onItemClickCallback ;
-    public void setOnItemClickCallback(barangAdapter.OnItemClickCallback callback){
+    private cartAdapter.OnItemClickCallback onItemClickCallback ;
+    public void setOnItemClickCallback(cartAdapter.OnItemClickCallback callback){
         this.onItemClickCallback = callback;
     }
 }

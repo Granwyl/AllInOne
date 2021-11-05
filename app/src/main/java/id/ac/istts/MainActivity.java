@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
             bar.add(bb);
             bb = new barang("dummy2","dummy#2","polka","batu",25000,10);
             bar.add(bb);
+            bb = new barang("dummy3","dummy#3","konis","cloud",20000,10);
+            bar.add(bb);
         }
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
