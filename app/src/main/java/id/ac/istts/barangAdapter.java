@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class barangAdapter extends RecyclerView.Adapter<barangAdapter.holder> {
     Context context;
-    ArrayList<barang> bar;
+    ArrayList<barang> bar = new ArrayList<>();
 
     public barangAdapter(Context context, ArrayList<barang> bar) {
         this.context = context;

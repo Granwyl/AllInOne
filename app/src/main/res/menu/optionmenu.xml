@@ -10,4 +10,7 @@
     <item
         android:id="@+id/optionlogout"
         android:title="Logout" />
+    <item
+        android:id="@+id/optionAdd"
+        android:title="Add Product" />
 </menu>

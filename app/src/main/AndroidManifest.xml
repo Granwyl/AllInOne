@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AllInOne">
         <activity
+            android:name=".AddProduct"
+            android:exported="true" />
+        <activity
             android:name=".official"
             android:exported="false" />
         <activity

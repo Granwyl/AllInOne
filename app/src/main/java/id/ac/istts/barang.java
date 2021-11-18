@@ -3,9 +3,27 @@ package id.ac.istts;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "barang")
 public class barang implements Parcelable {
-    String id_barang,nama_barang,id_penjual,jenis_barang;
-    Integer harga,stok;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id_barang")
+    String id_barang;
+    @ColumnInfo(name = "nama")
+    String nama_barang;
+    @ColumnInfo(name = "id_penjual")
+    String id_penjual;
+    @ColumnInfo(name = "jenis_barang")
+    String jenis_barang;
+    @ColumnInfo(name = "harga")
+    Integer harga;
+    @ColumnInfo(name = "stok")
+    Integer stok;
 
     public barang() {
     }

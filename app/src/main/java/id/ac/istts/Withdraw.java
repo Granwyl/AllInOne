@@ -2,23 +2,30 @@ package id.ac.istts;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Withdraw extends AppCompatActivity {
 
     ArrayList<user> u;
+    user ux;
     Integer idx=0;
     Connection conn;
     String connresult="";
@@ -38,7 +45,7 @@ public class Withdraw extends AppCompatActivity {
         rek = findViewById(R.id.editTextNumber2);
         Intent z = getIntent();
         if(z.hasExtra("user")){
-            u = z.getParcelableArrayListExtra("user");
+            ux = z.getParcelableExtra("user");
         }else{
             u = new ArrayList<>();
         }
@@ -55,14 +62,15 @@ public class Withdraw extends AppCompatActivity {
         }else{
             bar = new ArrayList<>();
         }
-        tv1.setText("Saldo : IDR "+u.get(idx).getSaldo());
+        tv1.setText("Saldo : IDR "+ux.getSaldo());
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent z = new Intent(Withdraw.this,profile.class);
-                z.putExtra("user",u);
+                z.putExtra("user",ux);
                 z.putExtra("idx",idx);
                 startActivity(z);
+                finish();
             }
         });
         dewit.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +82,27 @@ public class Withdraw extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Nominal harus diisi",Toast.LENGTH_SHORT).show();
                         }else{
                             int p = Integer.parseInt(nominal.getText().toString());
-                            u.get(idx).setSaldo(u.get(idx).getSaldo()-p);
-                            o = u.get(idx).getSaldo();
-                            //getTextfromSql(view);
-                            tv1.setText("Saldo : IDR "+u.get(idx).getSaldo());
-                            rek.setText("");
-                            nominal.setText("");
-                            Toast.makeText(getApplicationContext(),"Withdrawal sebesar "+p+
-                                    " berhasil dilakukan",Toast.LENGTH_SHORT).show();
+                            ux.setSaldo(ux.getSaldo()-p);
+                            o = ux.getSaldo();
+                            new SaldoAsync(ux, o, getApplicationContext(), new SaldoAsync.AddUserCallback() {
+                                @Override
+                                public void preExecute() {
+
+                                }
+
+                                @Override
+                                public void postExecute() {
+                                    tv1.setText("Saldo : IDR "+ux.getSaldo());
+                                    rek.setText("");
+                                    nominal.setText("");
+                                    Toast.makeText(getApplicationContext(),"Withdrawal sebesar "+p+
+                                            " berhasil dilakukan",Toast.LENGTH_SHORT).show();
+                                }
+                            }).execute();
+
+
+
+
                         }
 
                     }else{
@@ -94,19 +115,43 @@ public class Withdraw extends AppCompatActivity {
         });
 
     }
-    public void getTextfromSql(View view){
-        try {
-            ConnHelper connhelper = new ConnHelper();
-            conn = connhelper.connclass();
-            if (conn!=null){
-                String query= "update users set saldo = "+o+" where username = "+u.get(idx).getUsername()+";";
-                Statement st= conn.createStatement();
-                ResultSet rs= st.executeQuery(query);
-            }else {
-                connresult= "check connection";
-            }
-        }catch (Exception ex){
+}
 
-        }
+
+class SaldoAsync{
+    private final WeakReference<Context> weakContext;
+    private final WeakReference<AddUserCallback> weakCallback;
+    private user u1;
+    private int ctr;
+    SaldoAsync(user u1,int ctr,Context weakContext, AddUserCallback weakCallback) {
+        this.weakContext = new WeakReference<>(weakContext);
+        this.weakCallback = new WeakReference<>(weakCallback);
+        this.u1 = u1;
+        this.ctr = ctr;
+    }
+
+    void execute(){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        weakCallback.get().preExecute();
+        executorService.execute(()-> {
+            Context context = weakContext.get();
+            AppDatabase appDatabase = AppDatabase.getAppDatabase(context);
+            user ucheck = appDatabase.userDAO().getUser(u1.getUsername());
+            if(ucheck==null){
+
+            }else{
+                appDatabase.userDAO().setSaldo(ctr,ucheck.getUsername());
+            }
+            handler.post(()->{
+                weakCallback.get().postExecute();
+            });
+        });
+    }
+
+    interface AddUserCallback{
+        void preExecute();
+        void postExecute();
     }
 }

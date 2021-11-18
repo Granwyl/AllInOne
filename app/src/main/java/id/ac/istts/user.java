@@ -3,9 +3,27 @@ package id.ac.istts;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "users")
 public class user implements Parcelable {
-    public String username,email,password,type;
-    public int phone,saldo;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "username")
+    String username;
+    @ColumnInfo(name = "email")
+    String email;
+    @ColumnInfo(name = "password")
+    String password;
+    @ColumnInfo(name = "type")
+    String type;
+    @ColumnInfo(name = "phone")
+    public int phone;
+    @ColumnInfo(name = "saldo")
+    int saldo;
 
     public user(String username, String email, String password, String type, int phone, int saldo) {
         this.username = username;

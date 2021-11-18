@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,18 +17,23 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class homepage extends AppCompatActivity {
 
 
     ImageView profile;
     ArrayList<user> u;
+    user ux;
     Integer idx=0;
     Integer idc = 0;
     ArrayList<cartItem> carts;
-    ArrayList<barang> bar;
+    ArrayList<barang> bar=new ArrayList<>();
     RecyclerView rv;
     barangAdapter bad;
     @Override
@@ -34,7 +42,7 @@ public class homepage extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
         Intent z = getIntent();
         if(z.hasExtra("user")){
-            u = z.getParcelableArrayListExtra("user");
+            ux = z.getParcelableExtra("user");
         }else{
             u = new ArrayList<>();
         }
@@ -46,18 +54,25 @@ public class homepage extends AppCompatActivity {
         }else{
             carts = new ArrayList<>();
         }
-        if(z.hasExtra("barang")){
-            bar = z.getParcelableArrayListExtra("barang");
-        }else{
-            bar = new ArrayList<>();
-        }
+        new ShowBarangAsync(getApplicationContext(), new ShowBarangAsync.AddBarangCallback() {
+            @Override
+            public void preExecute() {
+
+            }
+
+            @Override
+            public void postExecute(List<barang> barangs) {
+                for (int i = 0; i < barangs.size(); i++) {
+                    bar.add(barangs.get(i));
+                }
+            }
+        }).execute();
         profile = findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent x = new Intent(homepage.this, profile.class);
-                x.putExtra("user",u);
-                x.putExtra("idx",idx);
+                x.putExtra("user",ux);
                 startActivity(x);
             }
         });
@@ -104,19 +119,51 @@ public class homepage extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.optioncart){
             Intent z = new Intent(homepage.this,cart.class);
-            z.putExtra("user",u);
-            z.putExtra("idx",idx);
-            z.putExtra("cart",carts);
-            z.putExtra("barang",bar);
-            z.putExtra("idc",idc);
+            z.putExtra("user",ux);
             startActivity(z);
         }else if(item.getItemId()==R.id.optionlogout){
             Intent z = new Intent(homepage.this,login.class);
-            z.putExtra("user",u);
-            z.putExtra("cart",carts);
-            z.putExtra("barang",bar);
             startActivity(z);
+        }else if(item.getItemId()==R.id.optionAdd){
+            if(ux.getType().equals("seller")){
+                Intent z = new Intent(homepage.this,AddProduct.class);
+                z.putExtra("user",ux);
+                startActivity(z);
+            }else{
+                Toast.makeText(getApplicationContext(), "Hanya seller yang bisa add product", Toast.LENGTH_SHORT).show();
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+}
+class ShowBarangAsync{
+    private final WeakReference<Context> weakContext;
+    private final WeakReference<AddBarangCallback> weakCallback;
+
+    ShowBarangAsync(Context weakContext, AddBarangCallback weakCallback) {
+        this.weakContext = new WeakReference<>(weakContext);
+        this.weakCallback = new WeakReference<>(weakCallback);
+    }
+
+    void execute(){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        weakCallback.get().preExecute();
+        executorService.execute(()->{
+            int count = 0;
+            Context context = weakContext.get();
+            AppDatabaseBarang appDatabaseBarang = AppDatabaseBarang.getAppDatabaseBarang(context);
+            List<barang> lb = appDatabaseBarang.barangDAO().getBarangList();
+
+            handler.post(()->{
+                weakCallback.get().postExecute(lb);
+            });
+        });
+    }
+
+    interface AddBarangCallback{
+        void preExecute();
+        void postExecute(List<barang> barangs);
     }
 }

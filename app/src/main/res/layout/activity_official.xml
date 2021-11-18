@@ -8,9 +8,19 @@
     tools:context=".official">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv_official"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/officialstoremenu" />
+        app:menu="@menu/officialstoremenu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="id.ac.istts.fragment_topup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"

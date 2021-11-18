@@ -2,18 +2,24 @@ package id.ac.istts;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class login extends AppCompatActivity {
     Connection conn;
@@ -71,18 +77,26 @@ public class login extends AppCompatActivity {
                 }
                 else{
                     //gettextfromSQL(view);
-                    for (int i = 0; i < u.size(); i++) {
-                        if(u.get(i).getEmail().equals(ete.getText().toString())){
-                            if(u.get(i).getPassword().equals(etp.getText().toString())){
+                    new LoginUserAsync(ete.getText().toString(),etp.getText().toString(), getApplicationContext(), new LoginUserAsync.AddUserCallback() {
+                        @Override
+                        public void preExecute() {
+
+                        }
+
+                        @Override
+                        public void postExecute(user udb,boolean bt) {
+                            if(udb==null){
+                                Toast.makeText(getApplicationContext(), "User belum terdaftar", Toast.LENGTH_SHORT).show();
+                            }else if(bt){
                                 Intent x = new Intent(login.this,homepage.class);
-                                x.putExtra("user",u);
-                                x.putExtra("idx",i);
-                                x.putExtra("barang",bar);
-                                x.putExtra("cart",carts);
+                                x.putExtra("user",udb);
                                 startActivity(x);
                             }
+                            else{
+                                Toast.makeText(getApplicationContext(), "Password salah", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
+                    }).execute();
 
                 }
             }
@@ -117,5 +131,44 @@ public class login extends AppCompatActivity {
         }catch (Exception ex){
 
         }
+    }
+}
+
+class LoginUserAsync{
+    private final WeakReference<Context> weakContext;
+    private final WeakReference<AddUserCallback> weakCallback;
+    private String u1,u2;
+    LoginUserAsync(String u1,String u2,Context weakContext, AddUserCallback weakCallback) {
+        this.weakContext = new WeakReference<>(weakContext);
+        this.weakCallback = new WeakReference<>(weakCallback);
+        this.u1 = u1;
+        this.u2 = u2;
+    }
+
+    void execute(){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        weakCallback.get().preExecute();
+        executorService.execute(()-> {
+            boolean tempbool = false;
+            Context context = weakContext.get();
+            AppDatabase appDatabase = AppDatabase.getAppDatabase(context);
+            user ucheck = appDatabase.userDAO().getUserbyemail(u1);
+            if(ucheck.getPassword().equals(u2)){
+                tempbool = true;
+            }
+
+
+            boolean finalTempbool = tempbool;
+            handler.post(()->{
+                weakCallback.get().postExecute(ucheck,finalTempbool);
+            });
+        });
+    }
+
+    interface AddUserCallback{
+        void preExecute();
+        void postExecute(user udb,boolean bt);
     }
 }
