@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+
+import id.ac.istts.R;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.cartAdapter;
+import id.ac.istts.data.cartItem;
+import id.ac.istts.data.user;
 
 public class cart extends AppCompatActivity {
 
@@ -56,7 +62,7 @@ public class cart extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent x = new Intent(cart.this,homepage.class);
+                Intent x = new Intent(cart.this, homepage.class);
                 x.putExtra("user",u);
                 x.putExtra("idx",idx);
                 startActivity(x);
@@ -129,7 +135,7 @@ public class cart extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.optioncart){
         }else if(item.getItemId()==R.id.optionlogout){
-            Intent z = new Intent(cart.this,login.class);
+            Intent z = new Intent(cart.this, login.class);
             z.putExtra("user",u);
             z.putExtra("cart",carts);
             z.putExtra("barang",bar);

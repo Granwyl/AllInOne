@@ -1,14 +1,12 @@
-package id.ac.istts;
+package id.ac.istts.db;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
+
+import id.ac.istts.data.user;
 
 @Database(entities={user.class},version=1)
 public abstract class AppDatabase extends RoomDatabase {

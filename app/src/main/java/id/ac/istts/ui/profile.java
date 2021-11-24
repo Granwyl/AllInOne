@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,13 +8,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+import id.ac.istts.R;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.cartItem;
+import id.ac.istts.data.user;
 
 public class profile extends AppCompatActivity {
 
@@ -85,14 +87,14 @@ public class profile extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.optioncart){
-            Intent z = new Intent(profile.this,cart.class);
+            Intent z = new Intent(profile.this, cart.class);
             z.putExtra("user",ux);
             z.putExtra("idx",idx);
             z.putExtra("cart",carts);
             z.putExtra("barang",bar);
             startActivity(z);
         }else if(item.getItemId()==R.id.optionlogout){
-            Intent z = new Intent(profile.this,login.class);
+            Intent z = new Intent(profile.this, login.class);
             z.putExtra("user",ux);
             z.putExtra("cart",carts);
             z.putExtra("barang",bar);

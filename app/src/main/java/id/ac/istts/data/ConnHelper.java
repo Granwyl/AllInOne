@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.data;
 
 import android.annotation.SuppressLint;
 import android.os.StrictMode;

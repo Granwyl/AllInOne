@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +19,11 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import id.ac.istts.R;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.user;
+import id.ac.istts.db.AppDatabaseBarang;
 
 public class AddProduct extends AppCompatActivity {
 
@@ -93,7 +98,7 @@ public class AddProduct extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent y = new Intent(AddProduct.this,homepage.class);
+                Intent y = new Intent(AddProduct.this, homepage.class);
                 y.putExtra("user",ux);
                 startActivity(y);
             }

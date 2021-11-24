@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,9 +17,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import id.ac.istts.data.ConnHelper;
+import id.ac.istts.R;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.cartItem;
+import id.ac.istts.data.user;
+import id.ac.istts.db.AppDatabase;
 
 public class login extends AppCompatActivity {
     Connection conn;
@@ -55,7 +61,7 @@ public class login extends AppCompatActivity {
         breg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent x = new Intent(login.this,MainActivity.class);
+                Intent x = new Intent(login.this, MainActivity.class);
                 x.putExtra("user",u);
                 x.putExtra("barang",bar);
                 x.putExtra("cart",carts);
@@ -71,7 +77,7 @@ public class login extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Password harus diisi",Toast.LENGTH_SHORT).show();
                 }else if(ete.getText().toString().equalsIgnoreCase("admin")&&
                         etp.getText().toString().equalsIgnoreCase("admin")){
-                    Intent x = new Intent(login.this,adminpage.class);
+                    Intent x = new Intent(login.this, adminpage.class);
                     x.putExtra("user",u);
                     startActivity(x);
                 }
@@ -88,7 +94,7 @@ public class login extends AppCompatActivity {
                             if(udb==null){
                                 Toast.makeText(getApplicationContext(), "User belum terdaftar", Toast.LENGTH_SHORT).show();
                             }else if(bt){
-                                Intent x = new Intent(login.this,homepage.class);
+                                Intent x = new Intent(login.this, homepage.class);
                                 x.putExtra("user",udb);
                                 startActivity(x);
                             }

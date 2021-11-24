@@ -1,9 +1,7 @@
-package id.ac.istts;
+package id.ac.istts.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +18,17 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import id.ac.istts.R;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.barangAdapter;
+import id.ac.istts.data.cartItem;
+import id.ac.istts.data.user;
+import id.ac.istts.db.AppDatabaseBarang;
 
 public class homepage extends AppCompatActivity {
 
@@ -71,7 +77,7 @@ public class homepage extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent x = new Intent(homepage.this, profile.class);
+                Intent x = new Intent(homepage.this, id.ac.istts.ui.profile.class);
                 x.putExtra("user",ux);
                 startActivity(x);
             }
@@ -118,15 +124,15 @@ public class homepage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.optioncart){
-            Intent z = new Intent(homepage.this,cart.class);
+            Intent z = new Intent(homepage.this, cart.class);
             z.putExtra("user",ux);
             startActivity(z);
         }else if(item.getItemId()==R.id.optionlogout){
-            Intent z = new Intent(homepage.this,login.class);
+            Intent z = new Intent(homepage.this, login.class);
             startActivity(z);
         }else if(item.getItemId()==R.id.optionAdd){
             if(ux.getType().equals("seller")){
-                Intent z = new Intent(homepage.this,AddProduct.class);
+                Intent z = new Intent(homepage.this, AddProduct.class);
                 z.putExtra("user",ux);
                 startActivity(z);
             }else{

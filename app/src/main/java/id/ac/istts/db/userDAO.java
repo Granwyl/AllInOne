@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.db;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -7,6 +7,8 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+
+import id.ac.istts.data.user;
 
 @Dao
 public interface userDAO {

@@ -1,10 +1,12 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import id.ac.istts.R;
 
 public class official extends AppCompatActivity {
 

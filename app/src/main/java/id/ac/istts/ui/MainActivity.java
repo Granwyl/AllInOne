@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,14 +15,15 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import id.ac.istts.R;
+import id.ac.istts.data.cartItem;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.user;
+import id.ac.istts.db.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
     Button reg;

@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+
+import id.ac.istts.R;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.cartItem;
+import id.ac.istts.data.user;
 
 public class adminpage extends AppCompatActivity {
 
@@ -43,7 +48,7 @@ public class adminpage extends AppCompatActivity {
         bexit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent z = new Intent(adminpage.this,login.class);
+                Intent z = new Intent(adminpage.this, login.class);
                 z.putExtra("user",u);
                 z.putExtra("cart",carts);
                 z.putExtra("barang",bar);

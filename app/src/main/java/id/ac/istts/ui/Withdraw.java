@@ -1,4 +1,4 @@
-package id.ac.istts;
+package id.ac.istts.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,19 +8,21 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import id.ac.istts.R;
+import id.ac.istts.data.barang;
+import id.ac.istts.data.cartItem;
+import id.ac.istts.data.user;
+import id.ac.istts.db.AppDatabase;
 
 public class Withdraw extends AppCompatActivity {
 
@@ -66,7 +68,7 @@ public class Withdraw extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent z = new Intent(Withdraw.this,profile.class);
+                Intent z = new Intent(Withdraw.this, profile.class);
                 z.putExtra("user",ux);
                 z.putExtra("idx",idx);
                 startActivity(z);

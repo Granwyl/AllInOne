@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".official">
+    tools:context=".ui.official">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_official"
@@ -17,7 +17,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="id.ac.istts.fragment_topup"
+        android:name="id.ac.istts.ui.fragment_topup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />

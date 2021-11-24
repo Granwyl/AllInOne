@@ -13,34 +13,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AllInOne">
         <activity
-            android:name=".AddProduct"
+            android:name=".ui.AddProduct"
             android:exported="true" />
         <activity
-            android:name=".official"
+            android:name=".ui.official"
             android:exported="false" />
         <activity
-            android:name=".adminpage"
+            android:name=".ui.adminpage"
             android:exported="true" />
         <activity
-            android:name=".cart"
+            android:name=".ui.cart"
             android:exported="true" />
         <activity
-            android:name=".Withdraw"
+            android:name=".ui.Withdraw"
             android:exported="true" />
         <activity
-            android:name=".Dtransaksi"
+            android:name=".ui.Dtransaksi"
             android:exported="true" />
         <activity
-            android:name=".profile"
+            android:name=".ui.profile"
             android:exported="true" />
         <activity
-            android:name=".homepage"
+            android:name=".ui.homepage"
             android:exported="true" />
         <activity
-            android:name=".login"
+            android:name=".ui.login"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
