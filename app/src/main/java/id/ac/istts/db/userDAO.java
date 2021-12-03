@@ -24,6 +24,9 @@ public interface userDAO {
     @Query("Update users set saldo=:x where username=:m")
     void setSaldo(int x,String m);
 
+    @Query("Update users set email=:x where username=:m")
+    void cEmail(String x,String m);
+
     @Insert
     void insert(user u);
 
