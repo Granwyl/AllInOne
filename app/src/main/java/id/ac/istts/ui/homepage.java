@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,22 +18,28 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import id.ac.istts.InternetTask;
 import id.ac.istts.R;
+import id.ac.istts.TResponse;
 import id.ac.istts.data.barang;
 import id.ac.istts.data.barangAdapter;
 import id.ac.istts.data.cartItem;
 import id.ac.istts.data.user;
 import id.ac.istts.db.AppDatabaseBarang;
+import id.ac.istts.general;
 
 public class homepage extends AppCompatActivity {
 
-
+    private ProgressDialog pDialog;
     ImageView profile;
     ArrayList<user> u;
     user ux;
@@ -113,7 +120,55 @@ public class homepage extends AppCompatActivity {
                 });
             }
         });
+
+        loadData();
     }
+
+    void loadData()
+    {
+        try {
+
+            TResponse ar=new TResponse() {
+                @Override
+                public void execute(String s) {
+                    try
+                    {
+                        JSONObject hasil=new JSONObject(s);
+                        JSONArray data=hasil.getJSONArray("data");
+                        for (int i=0;i<data.length();i++)
+                        {
+                            JSONObject detail=data.getJSONObject(i);
+                            String nama= detail.getString("nama");
+                            String idabarang=detail.getString("id_barang");
+                            System.out.println(idabarang+" "+nama);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Toast.makeText(getApplicationContext(),"Username dan password tidak ditemukan",Toast.LENGTH_LONG).show();
+                        ex.printStackTrace();
+                    }
+                }
+            };
+            InternetTask nt=new InternetTask(homepage.this, "Informasi", "Melakukan Login", ar,false,null);
+
+            //String username= URLEncoder.encode(etUsername.getText().toString(),"utf-8");
+            //String password= URLEncoder.encode(etPassword.getText().toString(),"utf-8");
+
+            //MainActivity.loadToken(getApplicationContext());
+            //String tokenS=URLEncoder.encode(MainActivity.token,"utf-8");
+            //url=InternetTask.ip+"api/checklogin.php?email="+username+"&password="+password+"&token="+tokenS;
+            String url= general.ip+"/getdata.php";
+            System.out.println(url);
+            nt.execute(url);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            System.out.println("gagal");
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

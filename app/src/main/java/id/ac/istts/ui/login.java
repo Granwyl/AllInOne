@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.hotspot2.pps.HomeSp;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,7 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -20,12 +25,16 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import id.ac.istts.InternetTask;
+import id.ac.istts.TResponse;
 import id.ac.istts.data.ConnHelper;
 import id.ac.istts.R;
 import id.ac.istts.data.barang;
 import id.ac.istts.data.cartItem;
 import id.ac.istts.data.user;
 import id.ac.istts.db.AppDatabase;
+import id.ac.istts.general;
+
 
 public class login extends AppCompatActivity {
     Connection conn;
@@ -35,6 +44,8 @@ public class login extends AppCompatActivity {
     Button breg;
     ArrayList<cartItem> carts;
     ArrayList<barang> bar;
+     //val client = OkHttpClient()
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +94,7 @@ public class login extends AppCompatActivity {
                 }
                 else{
                     //gettextfromSQL(view);
+                    /*
                     new LoginUserAsync(ete.getText().toString(),etp.getText().toString(), getApplicationContext(), new LoginUserAsync.AddUserCallback() {
                         @Override
                         public void preExecute() {
@@ -102,7 +114,67 @@ public class login extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Password salah", Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }).execute();
+                    }).execute();*/
+
+
+                    String username="";
+                    String password="";
+                    try {
+                         username= URLEncoder.encode(ete.getText().toString(),"utf-8");
+                         password=URLEncoder.encode(etp.getText().toString(),"utf-8");
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+
+                    try {
+
+                        TResponse ar=new TResponse() {
+                            @Override
+                            public void execute(String s) {
+                                try
+                                {
+                                    JSONObject hasil=new JSONObject(s);
+                                    System.out.println("abc");
+                                    if (hasil.getString("result").equals("no"))
+                                    {
+                                        Toast.makeText(login.this,"Gagal login",Toast.LENGTH_LONG).show();
+                                    }
+                                    else {
+                                        MainActivity.user=hasil.getJSONObject("user");
+                                        Intent it=new Intent(getApplicationContext(), homepage.class);
+                                        startActivity(it);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Toast.makeText(getApplicationContext(),"Username dan password tidak ditemukan",Toast.LENGTH_LONG).show();
+                                    ex.printStackTrace();
+                                }
+                            }
+                        };
+                        InternetTask nt=new InternetTask(login.this, "Informasi", "Melakukan Login", ar,false,null);
+
+                        //String username= URLEncoder.encode(etUsername.getText().toString(),"utf-8");
+                        //String password= URLEncoder.encode(etPassword.getText().toString(),"utf-8");
+
+                        //MainActivity.loadToken(getApplicationContext());
+                        //String tokenS=URLEncoder.encode(MainActivity.token,"utf-8");
+                        //url=InternetTask.ip+"api/checklogin.php?email="+username+"&password="+password+"&token="+tokenS;
+                        String url=general.ip+"/checklogin.php?username="+username+"&password="+password;
+                        System.out.println(url);
+                        nt.execute(url);
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.printStackTrace();
+                        System.out.println("gagal");
+                    }
+
+
+
 
                 }
             }

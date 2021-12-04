@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<barang> bar;
     RadioGroup rg;
     RadioButton rbsell;
+
+    public static JSONObject user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
         rg = findViewById(R.id.rg);
         rbsell = findViewById(R.id.rbseller);
         phone = findViewById(R.id.editTextNumber);
+        try {
+            //phone.setText(user.getString("username"));
+        }
+        catch (Exception ex)
+        {
+
+        }
         TempPass = etp.getText().toString();
         Intent z = getIntent();
         if(z.hasExtra("user")){
