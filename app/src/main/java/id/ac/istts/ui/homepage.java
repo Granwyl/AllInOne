@@ -75,9 +75,8 @@ public class homepage extends AppCompatActivity {
 
             @Override
             public void postExecute(List<barang> barangs) {
-                for (int i = 0; i < barangs.size(); i++) {
-                    bar.add(barangs.get(i));
-                }
+                bar.addAll(barangs);
+                //if(bar.size()<1)Toast.makeText(getApplicationContext(), "test00", Toast.LENGTH_SHORT).show();
             }
         }).execute();
         profile = findViewById(R.id.profile);

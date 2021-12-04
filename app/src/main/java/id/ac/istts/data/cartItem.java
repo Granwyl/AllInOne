@@ -3,10 +3,20 @@ package id.ac.istts.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.ArrayList;
 
+@Entity(tableName = "cart")
 public class cartItem implements Parcelable {
+    @ColumnInfo(name = "listbarang")
     ArrayList<barang> bar;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "usercart")
     String user;
 
     public cartItem() {

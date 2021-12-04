@@ -20,7 +20,7 @@ import id.ac.istts.data.user;
 
 public class profile extends AppCompatActivity {
 
-    TextView tarik,tv1;
+    TextView tarik,tv1,tve,tvp,tvph;
     ImageView iv8;
     user ux;
     Integer idx=0;
@@ -53,6 +53,18 @@ public class profile extends AppCompatActivity {
                 +"Phone Number : "+ ux.getPhone() +"\n"
                 +"Saldo : "+ux.getSaldo();
         tv1.setText(""+str);
+        tve = findViewById(R.id.textView10);
+        tve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent z1 = new Intent(profile.this,changeEmail.class);
+                z1.putExtra("user",ux);
+                startActivity(z1);
+                finish();
+            }
+        });
+        tvp = findViewById(R.id.textView7);
+        tvph = findViewById(R.id.textView11);
         tarik = findViewById(R.id.textView12);
         tarik.setOnClickListener(new View.OnClickListener() {
             @Override
