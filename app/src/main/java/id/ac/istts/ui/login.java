@@ -144,8 +144,16 @@ public class login extends AppCompatActivity {
                                     }
                                     else {
                                         MainActivity.user=hasil.getJSONObject("user");
-                                        Intent it=new Intent(getApplicationContext(), homepage.class);
-                                        startActivity(it);
+                                        if (MainActivity.user.getString("type").equals("seller"))
+                                        {
+                                            Intent it=new Intent(getApplicationContext(), homepageseller.class);
+                                            startActivity(it);
+                                        }
+                                        else {
+                                            Intent it=new Intent(getApplicationContext(), homepage.class);
+                                            startActivity(it);
+                                        }
+
                                     }
                                 }
                                 catch (Exception ex)

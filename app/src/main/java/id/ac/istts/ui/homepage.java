@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -46,13 +47,22 @@ public class homepage extends AppCompatActivity {
     Integer idx=0;
     Integer idc = 0;
     ArrayList<cartItem> carts;
-    ArrayList<barang> bar=new ArrayList<>();
+    ArrayList<JSONObject> bar=new ArrayList<>();
     RecyclerView rv;
     barangAdapter bad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        TextView homepagewelcome=findViewById(R.id.homepagewelcome);
+        try {
+            homepagewelcome.setText("Welcome "+MainActivity.user.getString("username"));
+        }
+        catch (Exception ex)
+        {
+
+        }
         Intent z = getIntent();
         if(z.hasExtra("user")){
             ux = z.getParcelableExtra("user");
@@ -67,6 +77,7 @@ public class homepage extends AppCompatActivity {
         }else{
             carts = new ArrayList<>();
         }
+        /*
         new ShowBarangAsync(getApplicationContext(), new ShowBarangAsync.AddBarangCallback() {
             @Override
             public void preExecute() {
@@ -78,7 +89,7 @@ public class homepage extends AppCompatActivity {
                 bar.addAll(barangs);
                 //if(bar.size()<1)Toast.makeText(getApplicationContext(), "test00", Toast.LENGTH_SHORT).show();
             }
-        }).execute();
+        }).execute();*/
         profile = findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,13 +145,17 @@ public class homepage extends AppCompatActivity {
                     {
                         JSONObject hasil=new JSONObject(s);
                         JSONArray data=hasil.getJSONArray("data");
+                        bar.clear();
                         for (int i=0;i<data.length();i++)
                         {
+                            bar.add(data.getJSONObject(i));
                             JSONObject detail=data.getJSONObject(i);
                             String nama= detail.getString("nama");
-                            String idabarang=detail.getString("id_barang");
-                            System.out.println(idabarang+" "+nama);
+                            String hargabarang=detail.getString("harga");
+                            String idpen=detail.getString("id_penjual");
+                            //System.out.println(hargabarang+" "+nama+" "+idpen);
                         }
+                        bad.notifyDataSetChanged();
                     }
                     catch (Exception ex)
                     {
@@ -169,32 +184,7 @@ public class homepage extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.optionmenu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.optioncart){
-            Intent z = new Intent(homepage.this, cart.class);
-            z.putExtra("user",ux);
-            startActivity(z);
-        }else if(item.getItemId()==R.id.optionlogout){
-            Intent z = new Intent(homepage.this, login.class);
-            startActivity(z);
-        }else if(item.getItemId()==R.id.optionAdd){
-            if(ux.getType().equals("seller")){
-                Intent z = new Intent(homepage.this, AddProduct.class);
-                z.putExtra("user",ux);
-                startActivity(z);
-            }else{
-                Toast.makeText(getApplicationContext(), "Hanya seller yang bisa add product", Toast.LENGTH_SHORT).show();
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
 class ShowBarangAsync{
     private final WeakReference<Context> weakContext;

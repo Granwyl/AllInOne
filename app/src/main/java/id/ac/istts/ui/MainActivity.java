@@ -17,15 +17,19 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import id.ac.istts.InternetTask;
 import id.ac.istts.R;
+import id.ac.istts.TResponse;
 import id.ac.istts.data.cartItem;
 import id.ac.istts.data.barang;
 import id.ac.istts.data.user;
 import id.ac.istts.db.AppDatabase;
+import id.ac.istts.general;
 
 public class MainActivity extends AppCompatActivity {
     Button reg;
@@ -120,23 +124,47 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if(b){
-                user u = new user(etn.getText().toString(),ete.getText().toString(),etp.getText().toString(),type,
-                        Integer.parseInt(phone.getText().toString()),500000);
-                //au.add(u);
-                new AddUserAsync(u,getApplicationContext(), new AddUserAsync.AddUserCallback() {
-                    @Override
-                    public void preExecute() {
+                try {
 
-                    }
+                    TResponse ar=new TResponse() {
+                        @Override
+                        public void execute(String s) {
+                            try
+                            {
+                                JSONObject hasil=new JSONObject(s);
+                                if (hasil.getString("hasil").equals("ok"))
+                                {
+                                    Toast.makeText(MainActivity.this,"Register berhasil dilakukan",Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(MainActivity.this,"Username sudah digunakan",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Toast.makeText(getApplicationContext(),"Username dan password tidak ditemukan",Toast.LENGTH_LONG).show();
+                                ex.printStackTrace();
+                            }
+                        }
+                    };
 
-                    @Override
-                    public void postExecute(String msg) {
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                    }
-                }).execute();
-                cartItem cm = new cartItem();
-                cm.setUser(ete.getText().toString());
-                carts.add(cm);
+
+                    String username= URLEncoder.encode(etn.getText().toString(),"utf-8");
+                    String password= URLEncoder.encode(etp.getText().toString(),"utf-8");
+                    String email= URLEncoder.encode(ete.getText().toString(),"utf-8");
+                    String xphone= URLEncoder.encode(phone.getText().toString(),"utf-8");
+                    type= URLEncoder.encode(type,"utf-8");
+                    InternetTask nt=new InternetTask(MainActivity.this, "Informasi", "Melakukan Register", ar,false,null);
+
+                    String url= general.ip+"checkregister.php?username="+username+"&password="+password+"&email="+email+"&phone="+xphone+"&type="+type;
+                    System.out.println(url);
+                    nt.execute(url);
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                    System.out.println("gagal");
+                }
             }
 
             }

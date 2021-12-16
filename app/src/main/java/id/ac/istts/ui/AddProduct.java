@@ -15,15 +15,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.lang.ref.WeakReference;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import id.ac.istts.InternetTask;
 import id.ac.istts.R;
+import id.ac.istts.TResponse;
 import id.ac.istts.data.barang;
 import id.ac.istts.data.user;
 import id.ac.istts.db.AppDatabaseBarang;
+import id.ac.istts.general;
 
 public class AddProduct extends AppCompatActivity {
 
@@ -80,6 +86,7 @@ public class AddProduct extends AppCompatActivity {
                     }else{
                         idb += s1.substring(1,2);
                     }
+                    /*
                     barang bb = new barang(idb,s1,ux.getUsername(),jenis,i1,i2);
                     new AddBarangAsync(idb, bb, getApplicationContext(), new AddBarangAsync.AddBarangCallback() {
                         @Override
@@ -91,7 +98,83 @@ public class AddProduct extends AppCompatActivity {
                         public void postExecute(String id) {
                             Toast.makeText(getApplicationContext(), "Berhasil Add Product "+id, Toast.LENGTH_SHORT).show();
                         }
-                    }).execute();
+                    }).execute();*/
+
+
+                    String idbarang="";
+                    String namabarang="";
+                    String idpenjual="";
+                    String jenisbarang="";
+                    int hargabarang=0;
+                    int stokbarang=0;
+                    try {
+                        idbarang=idb;
+                        namabarang=s1;
+                        idpenjual= URLEncoder.encode(ux.getUsername().toString(),"utf-8");
+                        jenisbarang=jenis;
+                        hargabarang=i1;
+                        stokbarang= i2;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+
+                    try {
+
+                        TResponse ar=new TResponse() {
+                            @Override
+                            public void execute(String s) {
+                                try
+                                {
+                                    JSONObject hasil=new JSONObject(s);
+                                    System.out.println("abc");
+                                    if (hasil.getString("hasil").equals("OK"))
+                                    {
+                                        Toast.makeText(AddProduct.this,"Gagal add Product",Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    Toast.makeText(getApplicationContext(),"Username dan password tidak ditemukan",Toast.LENGTH_LONG).show();
+                                    ex.printStackTrace();
+                                }
+                            }
+                        };
+                        InternetTask nt=new InternetTask(AddProduct.this, "Informasi", "Melakukan Add Barang", ar,false,null);
+
+                        //String username= URLEncoder.encode(etUsername.getText().toString(),"utf-8");
+                        //String password= URLEncoder.encode(etPassword.getText().toString(),"utf-8");
+
+                        //MainActivity.loadToken(getApplicationContext());
+                        //String tokenS=URLEncoder.encode(MainActivity.token,"utf-8");
+                        //url=InternetTask.ip+"api/checklogin.php?email="+username+"&password="+password+"&token="+tokenS;
+
+                        //idbarang=idb;
+                        //namabarang=s1;
+                        //idpenjual= URLEncoder.encode(ux.getUsername().toString(),"utf-8");
+                        //jenisbarang=jenis;
+                        //hargabarang=i1;
+                        //stokbarang= i2;
+
+                        String username=URLEncoder.encode(MainActivity.user.getString("username"),"utf-8");
+                        String pnamabarang=URLEncoder.encode(s1,"utf-8");
+                        String pjenisbarang=URLEncoder.encode(jenisbarang,"utf-8");
+                        String pharga=URLEncoder.encode(hargabarang+"","utf-8");
+                        String pstok=URLEncoder.encode(stokbarang+"","utf-8");
+                        String url= general.ip+"/check_addbarang.php?user="+username+"&barang="+pnamabarang+"&jenis="+pjenisbarang+"&harga="+pharga+"&stok="+pstok;
+                        System.out.println(url);
+                        nt.execute(url);
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.printStackTrace();
+                        System.out.println("gagal");
+                    }
+
+
                 }
             }
         });

@@ -22,9 +22,18 @@
         <entry key="..\:/MDP/AllInOne/app/src/main/res/menu/optionmenu.xml" value="0.11875" />
         <entry key="..\:/MDP/AllInOne/app/src/main/res/menu/popupcart.xml" value="0.1" />
         <entry key="..\:/MDP/AllInOne/app/src/main/res/menu/popuphomepage.xml" value="0.1" />
-        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/activity_homepage.xml" value="0.21" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/activity_add_product.xml" value="0.18" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/activity_homepage.xml" value="0.22" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/activity_homepageseller.xml" value="0.22" />
         <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/activity_login.xml" value="0.18" />
         <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/activity_official.xml" value="0.25" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/layout/item_barang_homepage.xml" value="0.22" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/menu/navmenu_homepageseller.xml" value="0.2" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/menu/officialstoremenu.xml" value="0.25" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/menu/optionmenu.xml" value="0.22" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/menu/popupcart.xml" value="0.22" />
+        <entry key="..\:/PROYEK_SDP/TES/app/src/main/res/menu/popuphomepage.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/AllInOne/app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>

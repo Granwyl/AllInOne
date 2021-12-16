@@ -9,15 +9,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import id.ac.istts.R;
 
 public class barangAdapter extends RecyclerView.Adapter<barangAdapter.holder> {
     Context context;
-    ArrayList<barang> bar = new ArrayList<>();
+    ArrayList<JSONObject> bar = new ArrayList<>();
 
-    public barangAdapter(Context context, ArrayList<barang> bar) {
+    public barangAdapter(Context context, ArrayList<JSONObject> bar) {
         this.context = context;
         this.bar = bar;
         setOnItemClickCallback(onItemClickCallback);
@@ -33,16 +35,24 @@ public class barangAdapter extends RecyclerView.Adapter<barangAdapter.holder> {
 
     @Override
     public void onBindViewHolder(@NonNull holder holder, int position) {
-        barang temp = bar.get(position);
-        holder.tv1.setText(temp.getNama_barang());
-        holder.tv2.setText("Harga : IDR "+temp.getHarga());
-        holder.tv3.setText("Penjual : "+temp.getId_penjual());
+        JSONObject temp = bar.get(position);
+        try
+        {
+            holder.tv1.setText(temp.getString("nama"));
+            holder.tv2.setText("Harga : IDR "+temp.getString("harga"));
+            holder.tv3.setText("Penjual : "+temp.getString("id_penjual"));
+        }
+        catch (Exception ex)
+        {
+
+        }
+
 
 
         holder.tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickCallback.onItemClicked(bar.get(position),view);
+                //onItemClickCallback.onItemClicked(bar.get(position),view);
             }
         });
     }
